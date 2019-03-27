@@ -85,7 +85,7 @@ int main()
         {
 
             input >> rd;
-            cout<<rd<<endl;
+
 
             if(rd=="$000") // Exception handling
             {
@@ -152,18 +152,19 @@ int main()
 
         else if(I_type.find(op)!=I_type.end()) // For i Type opcode
         {
-            if(op=="lw"||op=="sw")
+            if(op=="lw")
             {
                 input >> rd >> str_constant >> rs;
 
 
-                if(rs[0]!='(') // Exception handling
-                {
-                    cout << "Invalid: '(' is missing before rs" << endl;
-                    outputFile << "Invalid: '(' is missing before rs" << endl;
-                    continue;
-                }
-                else if(rs[rs.size()-1]!=')')
+
+//                if(rs[0]!='(') // Exception handling
+//                {
+//                    cout << "Invalid: '(' is missing before rs" << endl;
+//                    outputFile << "Invalid: '(' is missing before rs" << endl;
+//                    continue;
+//                }
+                 if(rs[rs.size()-1]!=')')
                 {
                     cout << "Invalid: ')' is missing after rs" << endl;
                     outputFile << "Invalid: ')' is missing after rs" << endl;
@@ -178,7 +179,10 @@ int main()
                 rs.erase(rs.begin());
                 rs.erase(rs.end()-1);
                 rd.erase(rd.end()-1);
-                cout<<"lw"<<rd<<endl;
+
+
+
+
 
                 if(rt=="$zero")
                 {
@@ -194,6 +198,56 @@ int main()
                     outputFile << "Invalid: $zero can to be used" << endl;
                     continue;
                 }
+            }
+            else if(op=="sw")
+            {
+
+                input >> rd >> str_constant >> rs;
+
+
+
+                if(rs[0]!='(') // Exception handling
+                {
+//                    cout << "Invalid: '(' is missing before rs" << endl;
+//                    outputFile << "Invalid: '(' is missing before rs" << endl;
+                    continue;
+                }
+                if(rs[rs.size()-1]!=')')
+                {
+                    cout << "Invalid: ')' is missing after rs" << endl;
+                    outputFile << "Invalid: ')' is missing after rs" << endl;
+                    continue;
+                }
+               if(rs[1]!='$')
+                {
+                    cout << "Invalid: '$' sign is missing before rs" << endl;
+                    outputFile << "Invalid: '$' sign is missing before rs" << endl;
+                    continue;
+                }
+                rs.erase(rs.begin());
+                rs.erase(rs.end()-1);
+                rd.erase(rd.end()-1);
+
+                string temp=rs;
+                rs=rd;
+                rd=temp;
+
+
+                if(rt=="$zero")
+                {
+                    rt = "";
+                    cout << "Invalid: $zero can to be used" << endl;
+                    outputFile << "Invalid: $zero can to be used" << endl;
+                    continue;
+                }
+                else if(rs=="$zero")
+                {
+                    rs = "";
+                    cout << "Invalid: $zero can to be used" << endl;
+                    outputFile << "Invalid: $zero can to be used" << endl;
+                    continue;
+                }
+
             }
 
             else

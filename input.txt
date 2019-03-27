@@ -3,6 +3,7 @@ and $r0, $r2, $r0
 nor $r0, $r1, $r2
 addi $r2, $r1, 12
 lw $r2, 5, ($r1)
+sw $r2, 5, ($r1)
 
 
 
